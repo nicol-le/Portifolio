@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Nicolle Gomes da Silva</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #050C07;
+  --surface: #0B1A0E;
+  --surface2: #0F2213;
+  --ink: #D6EDD8;
+  --ink-soft: #7FAF85;
+  --ink-dim: #3D6344;
+  --accent: #39FF6A;
+  --accent2: #00C9A7;
+  --accent3: #A8FF78;
+  --glow: rgba(57,255,106,0.15);
+  --glow2: rgba(0,201,167,0.12);
+  --line: #1A3320;
+  --line2: #0F2213;
+  color-scheme: dark;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Space Grotesk', system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+/* SCAN LINE EFFECT */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0,0,0,0.03) 2px,
+    rgba(0,0,0,0.03) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* GRID BACKGROUND */
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(57,255,106,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(57,255,106,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* NAV */
+nav {
+  position: fixed;
+  top: env(safe-area-inset-top, 0);
+  left: 0; right: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 3rem;
+  background: rgba(5,12,7,0.85);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--line);
+}
+.nav-logo {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  color: var(--accent);
+  letter-spacing: 0.15em;
+}
+.nav-links { display: flex; gap: 2.5rem; list-style: none; }
+.nav-links a {
+  text-decoration: none;
+  color: var(--ink-soft);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  position: relative;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: -4px; left: 0; right: 0;
+  height: 1px;
+  background: var(--accent);
+  transform: scaleX(0);
+  transition: transform 0.2s;
+}
+.nav-links a:hover { color: var(--accent); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* HERO */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 8rem 3rem 4rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 5rem;
+  z-index: 1;
+}
+
+/* animated orbs */
+.orb {
+  position: fixed;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+  z-index: 0;
+  animation: orbFloat 8s ease-in-out infinite;
+}
+.orb1 {
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(57,255,106,0.12) 0%, transparent 70%);
+  top: 10%; left: -10%;
+  animation-delay: 0s;
+}
+.orb2 {
+  width: 300px; height: 300px;
+  background: radial-gradient(circle, rgba(0,201,167,0.10) 0%, transparent 70%);
+  top: 50%; right: -5%;
+  animation-delay: 3s;
+}
+.orb3 {
+  width: 200px; height: 200px;
+  background: radial-gradient(circle, rgba(168,255,120,0.08) 0%, transparent 70%);
+  bottom: 20%; left: 40%;
+  animation-delay: 6s;
+}
+@keyframes orbFloat {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-40px) scale(1.1); }
+}
+
+.hero-text { position: relative; z-index: 2; }
+
+.terminal-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--accent);
+  border: 1px solid rgba(57,255,106,0.3);
+  padding: 0.35rem 0.8rem;
+  border-radius: 2px;
+  margin-bottom: 1.8rem;
+  background: rgba(57,255,106,0.05);
+  animation: fadeSlideUp 0.6s ease both;
+}
+.terminal-badge .blink {
+  display: inline-block;
+  width: 7px; height: 12px;
+  background: var(--accent);
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+h1 {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(2.6rem, 5vw, 4rem);
+  font-weight: 600;
+  line-height: 1.05;
+  color: var(--ink);
+  margin-bottom: 0.4rem;
+  animation: fadeSlideUp 0.7s ease 0.1s both;
+}
+.hero-name-accent {
+  color: var(--accent);
+  text-shadow: 0 0 40px rgba(57,255,106,0.4);
+}
+.hero-subtitle {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.78rem;
+  color: var(--accent2);
+  letter-spacing: 0.12em;
+  margin-bottom: 1.8rem;
+  animation: fadeSlideUp 0.7s ease 0.2s both;
+}
+.hero-desc {
+  color: var(--ink-soft);
+  font-size: 1rem;
+  max-width: 46ch;
+  margin-bottom: 2.2rem;
+  line-height: 1.8;
+  font-weight: 300;
+  animation: fadeSlideUp 0.7s ease 0.3s both;
+}
+.hero-desc strong { color: var(--ink); font-weight: 500; }
+
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; animation: fadeSlideUp 0.7s ease 0.4s both; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  background: var(--accent);
+  color: #050C07;
+  padding: 0.75rem 1.5rem;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.btn-primary:hover {
+  box-shadow: 0 0 30px rgba(57,255,106,0.4);
+  transform: translateY(-2px);
+}
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  border: 1px solid var(--line);
+  color: var(--ink-soft);
+  padding: 0.75rem 1.5rem;
+  border-radius: 2px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.82rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition: border-color 0.2s, color 0.2s;
+}
+.btn-ghost:hover { border-color: var(--accent2); color: var(--accent2); }
+
+/* HERO RIGHT */
+.hero-right { position: relative; z-index: 2; animation: fadeSlideUp 0.8s ease 0.2s both; }
+
+/* PHOTO SLOT */
+.photo-frame {
+  position: relative;
+  width: 200px;
+  height: 200px;
+  margin: 0 auto 1.5rem;
+}
+.photo-frame::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  background: conic-gradient(var(--accent), var(--accent2), var(--accent3), var(--accent));
+  animation: spin 4s linear infinite;
+  z-index: 0;
+}
+.photo-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--bg);
+  z-index: 1;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.photo-inner {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: var(--surface);
+  z-index: 2;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.photo-inner img {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+.photo-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--ink-dim);
+  font-size: 0.7rem;
+  font-family: 'Space Mono', monospace;
+  text-align: center;
+  padding: 1rem;
+}
+.photo-placeholder .icon { font-size: 2.5rem; opacity: 0.4; }
+
+.stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  padding: 1rem 1.2rem;
+  position: relative;
+  overflow: hidden;
+  transition: border-color 0.3s;
+}
+.stat-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+.stat-card:hover::before { transform: scaleX(1); }
+.stat-card:hover { border-color: var(--accent); }
+.stat-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  color: var(--ink-dim);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.3rem;
+}
+.stat-value {
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1;
+}
+.stat-sub { font-size: 0.72rem; color: var(--ink-soft); margin-top: 0.2rem; }
+
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* SECTIONS */
+section {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 5rem 3rem;
+}
+section + section { border-top: 1px solid var(--line); }
+.section-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent2);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.6rem;
+}
+h2 {
+  font-size: clamp(1.8rem, 3vw, 2.4rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--ink);
+  margin-bottom: 2.5rem;
+}
+h2 em { font-style: normal; color: var(--accent); }
+
+/* SOBRE */
+.about-grid { display: grid; grid-template-columns: 3fr 2fr; gap: 4rem; align-items: start; }
+.about-text p { color: var(--ink-soft); margin-bottom: 1rem; line-height: 1.85; font-weight: 300; max-width: 60ch; }
+.about-text p strong { color: var(--ink); font-weight: 500; }
+.about-sidebar { display: flex; flex-direction: column; gap: 0.75rem; }
+.info-row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.8rem 1rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  transition: border-color 0.2s;
+}
+.info-row:hover { border-color: var(--accent2); }
+.info-key { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--accent2); letter-spacing: 0.1em; text-transform: uppercase; }
+.info-val { font-size: 0.88rem; color: var(--ink); }
+.info-val a { color: var(--accent); text-decoration: none; }
+.info-val a:hover { text-decoration: underline; }
+
+/* SKILL TAGS */
+.tag-cloud { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.5rem; }
+.tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  padding: 0.3rem 0.7rem;
+  border-radius: 2px;
+  letter-spacing: 0.06em;
+  border: 1px solid;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.tag:hover { transform: translateY(-2px); }
+.tag-green { color: var(--accent); border-color: rgba(57,255,106,0.3); background: rgba(57,255,106,0.06); }
+.tag-teal  { color: var(--accent2); border-color: rgba(0,201,167,0.3); background: rgba(0,201,167,0.06); }
+.tag-lime  { color: var(--accent3); border-color: rgba(168,255,120,0.3); background: rgba(168,255,120,0.06); }
+.tag-dim   { color: var(--ink-soft); border-color: var(--line); background: var(--surface); }
+
+/* PROJECTS */
+.projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.project-card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  transition: border-color 0.3s, transform 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, var(--glow), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+.project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+.project-card:hover::after { opacity: 1; }
+.project-card.featured {
+  grid-column: span 2;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+}
+.project-card.teal { --glow: rgba(0,201,167,0.12); }
+.project-card.teal:hover { border-color: var(--accent2); }
+.project-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  align-self: flex-start;
+}
+.badge-active { color: var(--accent); background: rgba(57,255,106,0.1); border: 1px solid rgba(57,255,106,0.3); }
+.badge-done { color: var(--ink-soft); background: var(--surface2); border: 1px solid var(--line); }
+.badge-ext { color: var(--accent2); background: rgba(0,201,167,0.1); border: 1px solid rgba(0,201,167,0.3); }
+.badge-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; animation: blink 1.5s ease infinite; }
+.project-year { font-family: 'Space Mono', monospace; font-size: 0.68rem; color: var(--ink-dim); }
+h3 { font-size: 1.1rem; font-weight: 600; color: var(--ink); line-height: 1.3; }
+.project-desc { font-size: 0.88rem; color: var(--ink-soft); line-height: 1.75; }
+.project-link {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent2);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  margin-top: auto;
+  transition: color 0.2s;
+}
+.project-link:hover { color: var(--accent); }
+.project-link::after { content: '→'; }
+
+/* SKILLS GRID */
+.skills-cols { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+.skill-col { }
+.skill-col-head {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding-bottom: 0.7rem;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 1rem;
+}
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--line2);
+  transition: color 0.2s;
+}
+.skill-item:hover { color: var(--ink); }
+.skill-item::before { content: '>'; font-family: 'Space Mono', monospace; color: var(--accent2); font-size: 0.7rem; }
+
+/* PUBLICATIONS */
+.pub-list { display: flex; flex-direction: column; }
+.pub-item {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--line);
+  align-items: start;
+  transition: background 0.2s;
+}
+.pub-item:hover { background: rgba(57,255,106,0.02); }
+.pub-yr { font-family: 'Space Mono', monospace; font-size: 1rem; color: var(--accent); }
+.pub-title { font-size: 0.92rem; color: var(--ink); line-height: 1.5; margin-bottom: 0.3rem; }
+.pub-venue { font-size: 0.78rem; color: var(--ink-soft); }
+.pub-badge {
+  display: inline-block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.55rem;
+  padding: 0.15rem 0.45rem;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  border-radius: 2px;
+  margin-left: 0.5rem;
+  vertical-align: middle;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+/* FORMATION */
+.edu-list { display: flex; flex-direction: column; }
+.edu-item {
+  display: grid;
+  grid-template-columns: 4.5rem 1fr;
+  gap: 1.5rem;
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--line);
+}
+.edu-yr { font-family: 'Space Mono', monospace; font-size: 0.9rem; color: var(--accent); line-height: 1.4; }
+.edu-deg { font-size: 1rem; font-weight: 600; color: var(--ink); }
+.edu-inst { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.25rem; }
+
+/* EVENTS */
+.events-two { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; }
+.ev-col-head { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--ink-dim); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 1rem; }
+.ev-item { padding: 1rem 0; border-bottom: 1px solid var(--line2); }
+.ev-name { font-size: 0.9rem; color: var(--ink); }
+.ev-meta { font-size: 0.75rem; color: var(--ink-soft); margin-top: 0.2rem; font-family: 'Space Mono', monospace; }
+
+/* CONTACT */
+.contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.contact-left p { color: var(--ink-soft); line-height: 1.8; font-weight: 300; max-width: 45ch; margin-top: 0.5rem; }
+.contact-links { display: flex; flex-direction: column; gap: 0.8rem; }
+.contact-item {
+  display: flex; align-items: center; gap: 1rem;
+  text-decoration: none;
+  padding: 1rem 1.2rem;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: var(--surface);
+  transition: border-color 0.2s, transform 0.2s;
+}
+.contact-item:hover { border-color: var(--accent2); transform: translateX(4px); }
+.contact-icon { font-size: 1.1rem; width: 2rem; text-align: center; }
+.contact-label { font-size: 0.9rem; font-weight: 500; color: var(--ink); }
+.contact-sub { font-size: 0.72rem; color: var(--ink-soft); font-family: 'Space Mono', monospace; }
+
+/* FOOTER */
+footer {
+  border-top: 1px solid var(--line);
+  padding: 2rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+  z-index: 1;
+}
+.footer-logo { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--ink-dim); letter-spacing: 0.12em; }
+.footer-note { font-size: 0.72rem; color: var(--ink-dim); }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links { display: none; }
+  .hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 3rem; gap: 3rem; }
+  section { padding: 3.5rem 1.5rem; }
+  .about-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .project-card.featured { grid-column: auto; grid-template-columns: 1fr; gap: 1.5rem; }
+  .skills-cols { grid-template-columns: 1fr 1fr; }
+  .events-two { grid-template-columns: 1fr; gap: 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+@media (max-width: 480px) {
+  .skills-cols { grid-template-columns: 1fr; }
+  .stat-cards { grid-template-columns: 1fr; }
+  footer { flex-direction: column; gap: 0.5rem; text-align: center; }
+  .pub-item, .edu-item { grid-template-columns: 3.5rem 1fr; gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
+<div class="orb orb3"></div>
+
+<nav>
+  <span class="nav-logo">NGS_</span>
+  <ul class="nav-links">
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="#projetos">Projetos</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#publicações">Publicações</a></li>
+    <li><a href="#contato">Contato</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-text">
+    <div class="terminal-badge"><span class="blink"></span> Agronomia × Computação × Pesquisa</div>
+    <h1>Nicolle<br><span class="hero-name-accent">Gomes da Silva</span></h1>
+    <div class="hero-subtitle">// Entomologia · Ciência de Dados · Desenvolvimento</div>
+    <p class="hero-desc">
+      Estudante de Engenharia Agronômica na UFSCar com atuação interdisciplinar entre <strong>tecnologia, análise de dados, desenvolvimento de software</strong> e pesquisa científica aplicada à agricultura. Desenvolvo ferramentas digitais que transformam dados em decisões reais.
+    </p>
+    <div class="hero-btns">
+      <a class="btn-primary" href="#projetos">Ver projetos</a>
+      <a class="btn-ghost" href="https://lattes.cnpq.br/6056736208821048" target="_blank">Lattes CV</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- PHOTO FRAME -->
+    <div class="photo-frame">
+      <div class="photo-inner">
+        <!-- SUBSTITUA o src abaixo pela URL da sua foto -->
+        <img id="profile-photo" src="image.png" alt="Nicolle Gomes da Silva"
+          onerror="this.style.display='none'; document.getElementById('photo-ph').style.display='flex'">
+        
+      </div>
+    </div>
+
+    <div class="stat-cards">
+      <div class="stat-card">
+        <div class="stat-label">Bolsas IC</div>
+        <div class="stat-value">2</div>
+        <div class="stat-sub">Ativas na UFSCar</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Prêmio</div>
+        <div class="stat-value">2025</div>
+        <div class="stat-sub">Melhor resumo — MIP UFV</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Trabalhos</div>
+        <div class="stat-value">4+</div>
+        <div class="stat-sub">Apresentados em eventos</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Foco atual</div>
+        <div class="stat-value" style="font-size:1rem">IoT + IA</div>
+        <div class="stat-sub">Monitoramento de pragas</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SOBRE -->
+<section id="sobre" class="reveal">
+  <div class="section-tag">// sobre</div>
+  <h2>Pesquisadora em formação<br>que une <em>campo e código</em></h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Sou estudante de <strong>Engenharia Agronômica na UFSCar (São Carlos)</strong> com ênfase em Entomologia Agrícola, mas minha atuação vai muito além do laboratório. Desenvolvo softwares, trabalho com dados agrícolas e busco transformar resultados científicos em ferramentas concretas para instituições e produtores.</p>
+      <p>Meu diferencial é a <strong>integração entre agronomia, programação e ciência de dados</strong>. Enquanto outros estudam tecnologia ou propõem ideias, eu desenvolvo plataformas web, modelo dados de campo com R e estatística, e construo sistemas embarcados de monitoramento com ESP32 e visão computacional — tudo conectado a problemas agrícolas reais.</p>
+      <p>Com olho no futuro, estou direcionando minha trajetória para a <strong>interseção entre Computação e Ciências Agrárias</strong>, com interesse em seguir para pós-graduação em Ciência da Computação aplicada à agricultura de precisão.</p>
+      <div class="tag-cloud">
+        <span class="tag tag-green">Python</span>
+        <span class="tag tag-green">R / RStudio</span>
+        <span class="tag tag-green">JavaScript</span>
+        <span class="tag tag-teal">HTML · CSS</span>
+        <span class="tag tag-teal">Supabase</span>
+        <span class="tag tag-teal">GitHub</span>
+        <span class="tag tag-lime">ESP32-CAM</span>
+        <span class="tag tag-lime">IoT / GSM</span>
+        <span class="tag tag-lime">Visão Computacional</span>
+        <span class="tag tag-dim">QGIS</span>
+        <span class="tag tag-dim">AutoCAD</span>
+        <span class="tag tag-dim">Excel</span>
+      </div>
+    </div>
+    <div class="about-sidebar">
+      <div class="info-row">
+        <span class="info-key">Instituição</span>
+        <span class="info-val">UFSCar — São Carlos, SP</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Área principal</span>
+        <span class="info-val">Entomologia Agrícola / Ciência de Dados</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Lattes</span>
+        <span class="info-val"><a href="https://lattes.cnpq.br/6056736208821048" target="_blank">6056736208821048</a></span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">GitHub</span>
+        <span class="info-val"><a href="https://github.com/nicol-le" target="_blank">github.com/nicol-le</a></span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Idiomas</span>
+        <span class="info-val">Português (nativo) · Inglês (intermediário) · Espanhol (básico)</span>
+      </div>
+      <div class="info-row">
+        <span class="info-key">Objetivo</span>
+        <span class="info-val">Pós-graduação em Computação / Ciência de Dados aplicados ao agro</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJETOS -->
+<section id="projetos" class="reveal">
+  <div class="section-tag">// projetos</div>
+  <h2>O que estou<br><em>construindo</em></h2>
+  <div class="projects-grid">
+
+    <div class="project-card featured">
+      <div>
+        <div class="project-badge badge-active"><span class="badge-dot"></span>Em andamento</div>
+        <div class="project-year" style="margin-top:0.8rem; font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim);">2025 — atual</div>
+        <h3>Armadilhas Inteligentes com Visão Computacional e IoT para Detecção do Bicudo-do-Algodoeiro</h3>
+      </div>
+      <div>
+        <p class="project-desc">Desenvolvimento e validação de sistema de monitoramento automatizado do <em>Anthonomus grandis</em>. Armadilhas eletrônicas com ESP32-CAM, SIM/GSM e painéis solares capturam imagens a cada 10 minutos e transmitem para IA que detecta a praga automaticamente. 50 dispositivos por área experimental. Comunicação de invenção em andamento.</p>
+        <div class="tag-cloud" style="margin-top:1rem">
+          <span class="tag tag-green">ESP32-CAM</span>
+          <span class="tag tag-green">Visão Computacional</span>
+          <span class="tag tag-teal">GSM / 4G</span>
+          <span class="tag tag-teal">IoT</span>
+          <span class="tag tag-lime">IA aplicada</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge badge-active"><span class="badge-dot"></span>Ativo</div>
+      <div class="project-year" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:0.7rem;">2024 — atual</div>
+      <h3>Dashboard CEAGESP</h3>
+      <p class="project-desc">Plataforma web para reunir preços de culturas e dados climáticos em linguagem acessível a agricultores familiares. Análise, filtros interativos e visualizações para apoiar tomada de decisão de mercado.</p>
+      <div class="tag-cloud" style="margin-top:0.5rem">
+        <span class="tag tag-green">JavaScript</span>
+        <span class="tag tag-teal">Supabase</span>
+        <span class="tag tag-dim">GitHub Pages</span>
+      </div>
+      <a class="project-link" href="https://nicol-le.github.io/Ceagesp/" target="_blank">nicol-le.github.io/Ceagesp</a>
+    </div>
+
+    <div class="project-card teal">
+      <div class="project-badge badge-done">Concluído</div>
+      <div class="project-year" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:0.7rem;">2024 — 2025</div>
+      <h3>Modelagem de Sazonalidade do Bicudo-do-Algodoeiro</h3>
+      <p class="project-desc">Monitoramento semanal de infestação em algodão durante 3 safras. Integração de dados de campo e variáveis meteorológicas com análise de correlação de Pearson. Manuscrito em preparação para a <em>Pest Management Science</em>.</p>
+      <div class="tag-cloud" style="margin-top:0.5rem">
+        <span class="tag tag-teal">R / RStudio</span>
+        <span class="tag tag-teal">Estatística</span>
+        <span class="tag tag-dim">Dados meteorológicos</span>
+      </div>
+    </div>
+
+    <div class="project-card teal">
+      <div class="project-badge badge-active"><span class="badge-dot"></span>Em andamento</div>
+      <div class="project-year" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:0.7rem;">2025 — atual</div>
+      <h3>Dashboard Cooperativas × Restaurante Universitário</h3>
+      <p class="project-desc">Sistema digital para aproximar cooperativas da agricultura familiar e os RUs da UFSCar. Organização de informações de fornecimento, acompanhamento de entregas e mediação entre produtores e unidades consumidoras.</p>
+      <div class="tag-cloud" style="margin-top:0.5rem">
+        <span class="tag tag-green">JavaScript</span>
+        <span class="tag tag-teal">Supabase</span>
+        <span class="tag tag-lime">Ag. familiar</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge badge-ext">Extensão</div>
+      <div class="project-year" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:0.7rem;">2024 — 2025</div>
+      <h3>ACIEPE Entomologia Agrícola na Escola</h3>
+      <p class="project-desc">Visitas técnicas a escolas públicas em Taquarituba/SP ensinando identificação, coleta e preservação de insetos. Formação de consciência entomológica em estudantes do ensino básico.</p>
+      <div class="tag-cloud" style="margin-top:0.5rem">
+        <span class="tag tag-dim">Extensão universitária</span>
+        <span class="tag tag-dim">Educação pública</span>
+      </div>
+    </div>
+
+    <div class="project-card">
+      <div class="project-badge badge-done">Software</div>
+      <div class="project-year" style="font-family:'Space Mono',monospace; font-size:0.68rem; color:var(--ink-dim); margin-top:0.7rem;">2024</div>
+      <h3>Algodão-GEAG — Programa de Computador</h3>
+      <p class="project-desc">Ferramenta computacional desenvolvida como produção técnica do grupo de pesquisa GEAG para suporte ao monitoramento e análise de dados do agroecossistema do algodoeiro.</p>
+      <div class="tag-cloud" style="margin-top:0.5rem">
+        <span class="tag tag-green">Prod. técnica</span>
+        <span class="tag tag-teal">GEAG</span>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="reveal">
+  <div class="section-tag">// competências</div>
+  <h2>Stack técnica<br>e <em>habilidades</em></h2>
+  <div class="skills-cols">
+    <div class="skill-col">
+      <div class="skill-col-head">Programação</div>
+      <div class="skill-item">JavaScript</div>
+      <div class="skill-item">HTML5 / CSS</div>
+      <div class="skill-item">Python</div>
+      <div class="skill-item">R / RStudio</div>
+      <div class="skill-item">Git / GitHub</div>
+      <div class="skill-item">GitHub Pages</div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-head">Dados & Análise</div>
+      <div class="skill-item">Análise estatística</div>
+      <div class="skill-item">Correlação de Pearson</div>
+      <div class="skill-item">Modelagem estatística</div>
+      <div class="skill-item">Visualização de dados</div>
+      <div class="skill-item">Dados meteorológicos</div>
+      <div class="skill-item">Supabase (banco)</div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-head">Tecnologias de campo</div>
+      <div class="skill-item">Visão computacional</div>
+      <div class="skill-item">IoT / ESP32-CAM</div>
+      <div class="skill-item">GSM / 4G embarcado</div>
+      <div class="skill-item">QGIS / Geoprocessamento</div>
+      <div class="skill-item">Sensoriamento remoto (NDVI)</div>
+      <div class="skill-item">AutoCAD</div>
+    </div>
+    <div class="skill-col">
+      <div class="skill-col-head">Pesquisa & Campo</div>
+      <div class="skill-item">Entomologia agrícola</div>
+      <div class="skill-item">Manejo Integrado de Pragas</div>
+      <div class="skill-item">Monitoramento de campo</div>
+      <div class="skill-item">Redação científica</div>
+      <div class="skill-item">Análise exploratória</div>
+      <div class="skill-item">Inglês técnico-científico</div>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICAÇÕES -->
+<section id="publicações" class="reveal">
+  <div class="section-tag">// produção científica</div>
+  <h2>Trabalhos e<br><em>apresentações</em></h2>
+  <div class="pub-list">
+    <div class="pub-item">
+      <div class="pub-yr">2025</div>
+      <div>
+        <div class="pub-title">Modelagem de sazonalidade de infestação de <em>Anthonomus grandis</em> <span class="pub-badge">Simpósio</span></div>
+        <div class="pub-venue">III Workshop de MIP, UFV — <strong style="color:var(--accent)">🏆 Melhor resumo premiado</strong></div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-yr">2025</div>
+      <div>
+        <div class="pub-title">Modelagem de nicho ecológico da chupança do cacau (<em>Monalonion bondari</em>) <span class="pub-badge">Simpósio</span></div>
+        <div class="pub-venue">VIII Simpósio Internacional de Entomologia de Viçosa (SIEV)</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-yr">2025</div>
+      <div>
+        <div class="pub-title">Variação temporal de comunidades de predadores e polinizadores no agroecossistema do algodoeiro <span class="pub-badge">Outra</span></div>
+        <div class="pub-venue">VIII SIEV, 2025</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-yr">2024</div>
+      <div>
+        <div class="pub-title">Manejo do complexo <em>Spodoptera</em> spp. com controle biológico via drone com <em>Trichogramma pretiosum</em> <span class="pub-badge">Congresso</span></div>
+        <div class="pub-venue">CottonDay 2024</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-yr">2024</div>
+      <div>
+        <div class="pub-title">Algodão-GEAG — Programa de computador</div>
+        <div class="pub-venue">Produção técnica · co-autoria com T. A. Araujo</div>
+      </div>
+    </div>
+    <div class="pub-item">
+      <div class="pub-yr">2024</div>
+      <div>
+        <div class="pub-title">Abelhas sem ferrão na conservação de ecossistemas: estratégias e oportunidades</div>
+        <div class="pub-venue">Curso de curta duração ministrado · Especialização</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMAÇÃO -->
+<section id="formação" class="reveal">
+  <div class="section-tag">// formação</div>
+  <h2>Trajetória<br><em>acadêmica</em></h2>
+  <div class="edu-list">
+    <div class="edu-item">
+      <div class="edu-yr">2023<br>atual</div>
+      <div>
+        <div class="edu-deg">Graduação em Engenharia Agronômica</div>
+        <div class="edu-inst">Universidade Federal de São Carlos — UFSCar, São Carlos, SP</div>
+      </div>
+    </div>
+    <div class="edu-item">
+      <div class="edu-yr">2020<br>2023</div>
+      <div>
+        <div class="edu-deg">Ensino Médio</div>
+        <div class="edu-inst">Centro de Ensino Prof. Guilher Antonio Marciel — IEMA, Acailândia, MA</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTOS -->
+<section class="reveal">
+  <div class="section-tag">// eventos & comunidade</div>
+  <h2>Participação na<br><em>comunidade científica</em></h2>
+  <div class="events-two">
+    <div>
+      <div class="ev-col-head">Simpósios e congressos</div>
+      <div class="ev-item">
+        <div class="ev-name">VIII Simpósio Internacional de Entomologia de Viçosa (SIEV)</div>
+        <div class="ev-meta">2025 — 3 apresentações de pôster / painel</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-name">III Workshop de MIP — UFV</div>
+        <div class="ev-meta">2025 — 🏆 Melhor resumo</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-name">CottonDay 2024</div>
+        <div class="ev-meta">2024 — Apresentação de trabalho</div>
+      </div>
+    </div>
+    <div>
+      <div class="ev-col-head">Grupos e atividades permanentes</div>
+      <div class="ev-item">
+        <div class="ev-name">GEAG — Grupo de Entomologia Agrícola</div>
+        <div class="ev-meta">2023 — atual · Lagoa do Sino (2023, 2024, 2025)</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-name">Clínica Tecnológica em Manejo Integrado de Pragas</div>
+        <div class="ev-meta">2024 — Projeto de extensão concluído</div>
+      </div>
+      <div class="ev-item">
+        <div class="ev-name">GEAG no CottonDay 2024</div>
+        <div class="ev-meta">2024 — Encontro técnico</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTATO -->
+<section id="contato" class="reveal">
+  <div class="section-tag">// contato</div>
+  <div class="contact-grid">
+    <div class="contact-left">
+      <h2>Vamos conversar<br>sobre <em>ciência & tech?</em></h2>
+      <p>Aberta a colaborações em pesquisa, projetos de desenvolvimento, convites para palestras e parcerias entre agronomia e tecnologia. Se você trabalha na intersecção dessas áreas, me chama.</p>
+    </div>
+    <div class="contact-links">
+      <a class="contact-item" href="https://lattes.cnpq.br/6056736208821048" target="_blank">
+        <span class="contact-icon">📄</span>
+        <div>
+          <div class="contact-label">Currículo Lattes</div>
+          <div class="contact-sub">lattes.cnpq.br/6056736208821048</div>
+        </div>
+      </a>
+      <a class="contact-item" href="https://github.com/nicol-le" target="_blank">
+        <span class="contact-icon">⌨️</span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-sub">github.com/nicol-le</div>
+        </div>
+      </a>
+      <a class="contact-item" href="https://nicol-le.github.io/Ceagesp/" target="_blank">
+        <span class="contact-icon">🌐</span>
+        <div>
+          <div class="contact-label">Dashboard CEAGESP</div>
+          <div class="contact-sub">nicol-le.github.io/Ceagesp</div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <span class="footer-logo">NGS_ © 2026</span>
+  <span class="footer-note">Engenharia Agronômica · Ciência de Dados · UFSCar</span>
+</footer>
+
+<script>
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const io = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+  });
+}, { threshold: 0.1 });
+reveals.forEach(r => io.observe(r));
+
+// Photo: if no src, show placeholder
+const img = document.getElementById('profile-photo');
+const ph = document.getElementById('photo-ph');
+if (!img.src || img.src === window.location.href) {
+  img.style.display = 'none';
+  ph.style.display = 'flex';
+}
+</script>
+</body>
+</html>
